@@ -3,8 +3,19 @@
 import React from 'react';
 import { Zap, ArrowLeft, Github, Mail } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+    const router = useRouter();
+
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Simulate login delay
+        setTimeout(() => {
+            router.push('/waitlist');
+        }, 1000);
+    };
+
     return (
         <div className="min-h-screen bg-[#020202] text-white flex flex-col relative overflow-hidden selection:bg-[#22FF77] selection:text-black">
             {/* Background Effects */}
@@ -38,7 +49,7 @@ export default function LoginPage() {
                         <h1 className="text-2xl font-bold text-center mb-2">Welcome back</h1>
                         <p className="text-neutral-400 text-center mb-8 text-sm">Enter your details to access your workspace.</p>
 
-                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                        <form className="space-y-4" onSubmit={handleLogin}>
                             <div>
                                 <label className="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">Email Address</label>
                                 <input

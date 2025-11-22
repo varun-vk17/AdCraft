@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Zap, Sparkles, PlayCircle, Wand2, Link as LinkIcon, BarChart3, Globe, Music2, Youtube, Film, Sticker, Layout, Palette, Check, Quote, ArrowRight, TrendingUp, Users, Facebook, Target, Type } from 'lucide-react';
 import Link from 'next/link';
 
 export default function LandingPage() {
+    const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+
     useEffect(() => {
         // Intersection Observer
         const observer = new IntersectionObserver((entries) => {
@@ -751,11 +753,14 @@ export default function LandingPage() {
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold mb-4">Simple pricing, elite results.</h2>
                         <div className="flex items-center justify-center gap-4 mt-8">
-                            <span className="text-sm font-medium text-neutral-400">Monthly</span>
-                            <div className="w-12 h-6 rounded-full bg-[#22FF77] p-1 cursor-pointer shadow-[0_0_10px_#22FF77]">
-                                <div className="w-4 h-4 rounded-full bg-black translate-x-6"></div>
-                            </div>
-                            <span className="text-sm font-medium text-white">Yearly <span className="text-[#22FF77] text-xs ml-1 font-bold bg-[#22FF77]/10 px-2 py-0.5 rounded">-20%</span></span>
+                            <span className={`text-sm font-medium transition-colors ${billingCycle === 'monthly' ? 'text-white' : 'text-neutral-400'}`}>Monthly</span>
+                            <button
+                                onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
+                                className="w-12 h-6 rounded-full bg-[#22FF77] p-1 cursor-pointer shadow-[0_0_10px_#22FF77] relative transition-all"
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-black transition-transform duration-300 ${billingCycle === 'yearly' ? 'translate-x-6' : 'translate-x-0'}`}></div>
+                            </button>
+                            <span className={`text-sm font-medium transition-colors ${billingCycle === 'yearly' ? 'text-white' : 'text-neutral-400'}`}>Yearly <span className="text-[#22FF77] text-xs ml-1 font-bold bg-[#22FF77]/10 px-2 py-0.5 rounded">-20%</span></span>
                         </div>
                     </div>
 
@@ -777,7 +782,7 @@ export default function LandingPage() {
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#22FF77] text-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-[0_0_20px_#22FF77]">Most Popular</div>
                             <div className="absolute inset-0 bg-[#22FF77] blur-3xl opacity-5 -z-10"></div>
                             <h3 className="text-xl font-bold text-white">Pro</h3>
-                            <div className="text-4xl font-bold mt-4 mb-2">$49</div>
+                            <div className="text-4xl font-bold mt-4 mb-2">{billingCycle === 'monthly' ? '$49' : '$39'}</div>
                             <p className="text-sm text-neutral-500 mb-8">For growth teams scaling up.</p>
                             <Link href="/signup" className="block w-full py-3 rounded-xl bg-[#22FF77] text-black font-bold hover:shadow-[0_0_30px_rgba(34,255,119,0.6)] transition-shadow animate-pulse hover:animate-none text-center">Start Free Trial</Link>
                             <ul className="mt-8 space-y-3 text-sm text-neutral-300">
@@ -790,7 +795,7 @@ export default function LandingPage() {
                         {/* Agency */}
                         <div className="p-8 rounded-3xl border border-white/10 bg-[#0A0A0A] hover:border-white/20 transition-colors group">
                             <h3 className="text-xl font-bold text-white">Agency</h3>
-                            <div className="text-4xl font-bold mt-4 mb-2">$199</div>
+                            <div className="text-4xl font-bold mt-4 mb-2">{billingCycle === 'monthly' ? '$199' : '$159'}</div>
                             <p className="text-sm text-neutral-500 mb-8">For large teams & organizations.</p>
                             <Link href="/demo" className="block w-full py-3 rounded-xl border border-white/20 font-bold hover:bg-white/5 transition-colors text-center">Book a Demo</Link>
                             <ul className="mt-8 space-y-3 text-sm text-neutral-400">

@@ -3,8 +3,19 @@
 import React from 'react';
 import { Zap, ArrowLeft, Github, Check } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
+    const router = useRouter();
+
+    const handleSignup = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Simulate signup delay
+        setTimeout(() => {
+            router.push('/waitlist');
+        }, 1000);
+    };
+
     return (
         <div className="min-h-screen bg-[#020202] text-white flex flex-col relative overflow-hidden selection:bg-[#22FF77] selection:text-black">
             {/* Background Effects */}
@@ -78,7 +89,7 @@ export default function SignupPage() {
                         <h2 className="text-2xl font-bold text-center mb-2">Create your account</h2>
                         <p className="text-neutral-400 text-center mb-8 text-sm">Get started for free. No credit card needed.</p>
 
-                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                        <form className="space-y-4" onSubmit={handleSignup}>
                             <div>
                                 <label className="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">Full Name</label>
                                 <input
